@@ -1,0 +1,6 @@
+endpoint: https://eu1.prisma.sh/jacob-colborn-1612df/foss-aac/dev
+datamodel: datamodel.prisma
+secret: ${env:PRISMA_SECRET}
+hooks:
+  post-deploy:
+    - graphql get-schema -p prisma

@@ -1,0 +1,42 @@
+type User {
+  id: ID! @id
+  email: String! @unique
+  name: String!
+  password: String!
+  role: [Role]! @scalarList(strategy: RELATION)
+  permission: Permission! @default(value: USER)
+  team: [User!] @scalarList(strategy: RELATION)
+  configuration: Configuration @relation(link: INLINE)
+}
+
+type Configuration {
+  id: ID! @id
+  folder: [Folder!]! @relation(link: TABLE)
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+}
+
+type Folder {
+  id: ID! @id
+  name: String!
+  words: String!
+  phrases: String!
+  sentences: String!
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+}
+
+enum Role {
+  SPEAKER
+  FRIEND
+  PARENT
+  SIBLING
+  DOCTOR
+  THERAPIST
+}
+
+enum Permission {
+  USER
+  SUPERUSER
+  ADMIN
+}
