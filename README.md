@@ -19,12 +19,12 @@ The users can organize their words/phrases/sentences in folders for quick access
 - Develop design documentation
 - Create server side application for database interfacing
 - Create client side application to interact with database
-  .._ Web based
-  .._ iOS based
-  .._ Android based
-  .._ Mac based
-  .._ Windows based
-  .._ Linux based
+  - Web based
+  - iOS based
+  - Android based
+  - Mac based
+  - Windows based
+  - Linux based
 - Improvements ->
 
 ## Planned Stack
