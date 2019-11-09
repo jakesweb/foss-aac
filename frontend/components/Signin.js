@@ -2,25 +2,20 @@ import gql from "graphql-tag";
 import React, { Component } from "react";
 import { Mutation } from "react-apollo";
 import Form from "./styles/Form";
+import Error from "./ErrorMessage";
 
-const SINGUP_MUTATION = gql`
-  mutation SINGUP_MUTATION(
-    $email: String!
-    $name: String!
-    $password: String!
-  ) {
-    signup(email: $email, name: $name, password: $password) {
+const SIGNIN_MUTATION = gql`
+  mutation SIGNIN_MUTATION($email: String!, $password: String!) {
+    signin(email: $email, password: $password) {
       id
       email
-      name
     }
   }
 `;
 
-class Signup extends Component {
+class Signin extends Component {
   state = {
     email: "",
-    name: "",
     password: ""
   };
 
@@ -30,14 +25,14 @@ class Signup extends Component {
 
   render() {
     return (
-      <Mutation mutation={SINGUP_MUTATION} variables={this.state}>
-        {(signup, { error, loading }) => (
+      <Mutation mutation={SIGNIN_MUTATION} variables={this.state}>
+        {(signin, { error, loading }) => (
           <Form
             method="post"
             onSubmit={async e => {
               e.preventDefault();
-              await signup();
-              this.setState({ email: "", name: "", password: "" });
+              await signin();
+              this.setState({ email: "", password: "" });
             }}
           >
             <fieldset disabled={loading}>
@@ -52,16 +47,6 @@ class Signup extends Component {
                   onChange={this.saveToState}
                 />
               </label>
-              <label htmlFor="name">
-                Name
-                <input
-                  type="name"
-                  name="name"
-                  placeholder="Name"
-                  value={this.state.name}
-                  onChange={this.saveToState}
-                />
-              </label>
               <label htmlFor="password">
                 Password
                 <input
@@ -72,7 +57,7 @@ class Signup extends Component {
                   onChange={this.saveToState}
                 />
               </label>
-              <button type="submit">Sign Up</button>
+              <button type="submit">Sign In</button>
             </fieldset>
           </Form>
         )}
@@ -81,5 +66,5 @@ class Signup extends Component {
   }
 }
 
-export default Signup;
-export { SINGUP_MUTATION };
+export default Signin;
+export { SIGNIN_MUTATION };
