@@ -41,7 +41,7 @@ class Signup extends Component {
             }}
           >
             <fieldset disabled={loading}>
-              <Error error={error} />
+              {/* <Error error={error} /> */}
               <label htmlFor="email">
                 Email
                 <input
