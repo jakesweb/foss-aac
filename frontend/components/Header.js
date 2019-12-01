@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import Link from "next/link";
+import Signout from "./Signout";
+import User from "./User";
 
 const HeaderDiv = styled.div`
   width: 100%;
@@ -41,32 +43,48 @@ const HeaderDiv = styled.div`
   }
 `;
 
-class Header extends Component {
-  render() {
-    return (
-      <HeaderDiv>
-        <Link href="/">
-          <a>
-            <h1>FOSS AAC</h1>
-          </a>
-        </Link>
-        <nav>
-          <Link href="/signin">
-            <a>Sign In</a>
-          </Link>
-          <Link href="/signup">
-            <a>Sign Up</a>
-          </Link>
-          <Link href="/about">
-            <a>About</a>
-          </Link>
-          <Link href="/contact">
-            <a>Contact</a>
-          </Link>
-        </nav>
-      </HeaderDiv>
-    );
-  }
-}
+const Header = () => (
+  <HeaderDiv>
+    <Link href="/">
+      <a>
+        <h1>FOSS AAC</h1>
+      </a>
+    </Link>
+    <User>
+      {({ data }) => {
+        const me = data ? data.me : null;
+        return (
+          <nav>
+            {me && (
+              <>
+                <Link href="/about">
+                  <a>About</a>
+                </Link>
+                <Link href="/contact">
+                  <a>Contact</a>
+                </Link>
+                <Link href="/">
+                  <a>
+                    <Signout />
+                  </a>
+                </Link>
+              </>
+            )}
+            {!me && (
+              <>
+                <Link href="/signup">
+                  <a>Sign Up</a>
+                </Link>
+                <Link href="/signin">
+                  <a>Sign In</a>
+                </Link>
+              </>
+            )}
+          </nav>
+        );
+      }}
+    </User>
+  </HeaderDiv>
+);
 
 export default Header;
